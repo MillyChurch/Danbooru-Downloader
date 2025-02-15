@@ -2,8 +2,8 @@ from httpx import Client
 from bs4 import BeautifulSoup
 
 primeiraPagina = 1
-quantidadePaginas = 5
-pesquisa = "beatrice_(umineko)"
+quantidadePaginas = 20
+pesquisa = "perona"
 
 #criando uma conexão com o site
 url = f"https://danbooru.donmai.us"
@@ -31,6 +31,8 @@ for x in range(primeiraPagina,quantidadePaginas+primeiraPagina):
 
         imagemDoPost = soup.find("img",attrs={"class":"fit-width"})
         caminhoDaImagem = imagemDoPost.get("src")
+        
+        if caminhoDaImagem == None: continue
 
         aax = Client()
 
