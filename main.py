@@ -1,3 +1,3 @@
-from Downloader import Downloader
+from Interface import run
 
-Downloader.download(0,69, "beatrice_(umineko)", "Downloads")
+run()
