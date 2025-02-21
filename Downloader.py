@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
     
 def download(pesquisa:str, caminho_pasta:str, quantidade_imagens: int):
-    
+
     #criando uma conexão com o site
     url = f"https://danbooru.donmai.us"
     cliente = Client(base_url=url)
@@ -15,6 +15,9 @@ def download(pesquisa:str, caminho_pasta:str, quantidade_imagens: int):
 
     while(True):
         
+        if(downloads == quantidade_imagens): 
+                break
+
         page+=1
         resposta = cliente.get(f"/posts?page={page}&tags={pesquisa}")
         
@@ -25,13 +28,12 @@ def download(pesquisa:str, caminho_pasta:str, quantidade_imagens: int):
         #lista as divs pertencentes a classe post preview link
         imagensComLinks = soup.find_all("a",attrs={"class":"post-preview-link"})
         if(imagensComLinks == []):
-            break
+            break 
 
         #para navegar em cada preview de post
         for imgLinks in imagensComLinks:
 
             if(downloads == quantidade_imagens):
-                print("Você baixou todas as imagens dessa pesquisa") 
                 break
 
             post = cliente.get(imgLinks.get("href"))
